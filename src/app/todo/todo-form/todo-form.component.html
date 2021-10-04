@@ -1,0 +1,51 @@
+<div
+  class="row"
+  fxLayout="row"
+  fxLayout.xs="column"
+  fxLayoutGap="25px"
+  fxLayoutAlign="center center"
+  class="todo-form"
+>
+  <mat-card fxFlex="50%">
+    <mat-card-title>Add To Do task</mat-card-title>
+    <mat-card-content>
+      <form autocomplete="off">
+        <div
+          class="row"
+          fxLayout="row"
+          fxLayoutAlign="center center"
+          fxLayout.xs="column"
+          fxLayoutGap="25px"
+        >
+          <div fxFlex="50">
+            <mat-form-field>
+              <mat-label>Enter Todo Item</mat-label>
+              <input
+                matInput
+                id="todoinput"
+                placeholder="Enter To do"
+                name="todotaskname"
+                [(ngModel)]="todoItem.name"
+                (keyup.enter)="saveToDoItem()"
+              />
+            </mat-form-field>
+          </div>
+          <div fxFlex="50">
+            <button
+              id="addtodobutton"
+              mat-raised-button
+              color="primary"
+              (click)="saveToDoItem()"
+              [disabled]="todoItem.name === ''"
+            >
+              {{ buttonText }}
+            </button>
+            <button mat-raised-button color="primary" (click)="savetoApi()">
+              Save
+            </button>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

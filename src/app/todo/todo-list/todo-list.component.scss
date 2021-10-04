@@ -1,0 +1,11 @@
+table {
+  width: 100%;
+
+  .text-center-align {
+    text-align: center;
+    mat-icon {
+      cursor: pointer;
+      margin-right: 10px;
+    }
+  }
+}
