@@ -7,7 +7,7 @@
   class="todo-form"
 >
   <mat-card fxFlex="50%">
-    <mat-card-title>Add To Do task</mat-card-title>
+    <mat-card-title>{{ formHeaderText }}</mat-card-title>
     <mat-card-content>
       <form autocomplete="off">
         <div
@@ -40,7 +40,12 @@
             >
               {{ buttonText }}
             </button>
-            <button mat-raised-button color="primary" (click)="savetoApi()">
+            <button
+              mat-raised-button
+              color="primary"
+              [disabled]="todoItem.name === ''"
+              (click)="savetoApi()"
+            >
               Save
             </button>
           </div>

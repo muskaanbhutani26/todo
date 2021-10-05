@@ -17,12 +17,7 @@ export class TodoService {
   public getToDoList = () => this.todoList$;
 
   listChanged(): void {
-    if (this.todoArr.length) {
-      localStorage.setItem(
-        this.LOCAL_STORAGE_KEY,
-        JSON.stringify(this.todoArr)
-      );
-    }
+    localStorage.setItem(this.LOCAL_STORAGE_KEY, JSON.stringify(this.todoArr));
   }
 
   public addItem = (newItem: TodoItem) =>
@@ -49,9 +44,11 @@ export class TodoService {
     const itemToRemoveIndex = this.todoArr.findIndex(
       (item) => item === itemToRemove
     );
+    console.log(itemToRemoveIndex);
     if (itemToRemoveIndex > -1) {
       this.todoArr.splice(itemToRemoveIndex, 1);
-      this.todoList$.next(this.todoArr);
+      console.log(this.todoArr);
+      this.todoList$.next([...this.todoArr]);
     }
   }
 

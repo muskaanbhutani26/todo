@@ -12,8 +12,8 @@ export class TodoFormComponent implements OnInit {
   @Output()
   readonly addEvent = new EventEmitter<TodoItem>();
   public todoItem = new TodoItem('');
-  editMode: boolean = false;
   buttonText = 'Add';
+  formHeaderText = 'Add Todo';
   editedIndex?: number;
 
   constructor(
@@ -28,7 +28,7 @@ export class TodoFormComponent implements OnInit {
       if (params['id']) {
         this.editedIndex = params['id'];
         this.buttonText = 'Update';
-        this.editMode = true;
+        this.formHeaderText = 'Update Todo';
         const editIndexItem = params['id'];
         const todoList = this.todoService.getLocalStorageList();
         console.log(todoList[editIndexItem]);
@@ -37,33 +37,29 @@ export class TodoFormComponent implements OnInit {
     });
   }
 
-  public saveToDoItem() {
-    if (this.todoItem.name) {
-      if (this.editedIndex) {
-        this.todoService.updateItem(
-          new TodoItem(this.todoItem.name),
-          this.editedIndex
-        );
-        this.addEvent?.emit(this.todoItem);
-        this.router.navigate(['/todo']);
-      } else {
-        this.todoService.addItem(new TodoItem(this.todoItem.name));
-        this.addEvent?.emit(this.todoItem);
-        this.todoItem.name = '';
-      }
+  saveToDoItem() {
+    if (this.editedIndex) {
+      this.todoService.updateItem(
+        new TodoItem(this.todoItem.name),
+        this.editedIndex
+      );
+      this.addEvent?.emit(this.todoItem);
+      this.router.navigate(['/todo']);
+    } else {
+      this.todoService.addItem(new TodoItem(this.todoItem.name));
+      this.addEvent?.emit(this.todoItem);
+      this.todoItem.name = '';
     }
   }
 
   savetoApi() {
-    if (this.todoItem.name) {
-      this.todoService.saveItem(new TodoItem(this.todoItem.name)).subscribe(
-        (data: any): void => {
-          console.log(data);
-        },
-        (error): void => {
-          console.error(`Error: ${error.message}`);
-        }
-      );
-    }
+    this.todoService.saveItem(new TodoItem(this.todoItem.name)).subscribe(
+      (data: any): void => {
+        console.log(data);
+      },
+      (error): void => {
+        console.error(`Error: ${error.message}`);
+      }
+    );
   }
 }
