@@ -8,7 +8,7 @@ import { TodoItem } from '../shared/models/Todo';
 })
 export class TodoService {
   constructor(private http: HttpClient) {
-    this.todoList$.subscribe(this.listChanged.bind(this));
+    this.todoList$.subscribe(() => this.listChanged());
   }
 
   private readonly LOCAL_STORAGE_KEY = 'todoList';

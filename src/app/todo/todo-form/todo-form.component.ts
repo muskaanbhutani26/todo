@@ -24,15 +24,12 @@ export class TodoFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      const editIndexItem = params['id'];
       if (params['id']) {
         this.editedIndex = params['id'];
         this.buttonText = 'Update';
         this.formHeaderText = 'Update Todo';
-        const editIndexItem = params['id'];
         const todoList = this.todoService.getLocalStorageList();
-        console.log(todoList[editIndexItem]);
-        this.todoItem = new TodoItem(todoList[editIndexItem].name);
+        this.todoItem = new TodoItem(todoList[params.id].name);
       }
     });
   }
